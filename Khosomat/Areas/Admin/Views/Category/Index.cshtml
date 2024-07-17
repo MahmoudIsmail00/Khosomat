@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewBag.PageTitle = "Category Management";
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<h3>Categories</h3>
+<hr />
+<a asp-action="Create" asp-controller="Category" class="btn btn-info">Create</a>
+<table class="table tab-content">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Date Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach ( var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.TimeCreated</td>
+                <td>
+                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
