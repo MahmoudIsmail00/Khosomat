@@ -2,6 +2,9 @@ using Khosomat.DataAccess;
 using Khosomat.DataAccess.Repos;
 using Khosomat.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Khosomat.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Khosomat
 {
@@ -13,11 +16,22 @@ namespace Khosomat
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+            
             builder.Services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+                options => options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(4)
+                )
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+
             var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -31,15 +45,15 @@ namespace Khosomat
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Admin}/{controller=Category}/{action=Index}/{id?}");
-            app.MapControllerRoute(
-             name: "Customer",
-             pattern: "{area=Customer}/{controller=Category}/{action=Index}/{id?}");
+                pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+            //app.MapControllerRoute(
+            // name: "Customer",
+            // pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
