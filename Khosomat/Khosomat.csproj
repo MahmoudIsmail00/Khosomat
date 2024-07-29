@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Areas\Customer\Views\Home\Details.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Areas\Customer\Views\Home\Details.cshtml" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
@@ -42,11 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Customer\Views\Home\Details.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Customer\Views\Home\Details.cshtml" />
+    <Content Update="Areas\Customer\Views\Home\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

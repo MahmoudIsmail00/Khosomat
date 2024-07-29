@@ -1,0 +1,22 @@
+﻿main {
+    margin: 50px;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.billing {
+    max-width: 50%;
+    background-color: #e6e6e6;
+    padding: 30px;
+}
+
+.summary {
+    background-color: #e6e6e6;
+    padding: 30px;
+}
